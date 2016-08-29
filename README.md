@@ -1,0 +1,2 @@
+# KNU_econtrade
+ONLY FOR BIST DEVELOPERS!!
