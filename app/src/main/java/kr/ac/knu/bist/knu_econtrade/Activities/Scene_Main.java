@@ -1,13 +1,15 @@
-package kr.ac.knu.bist.knu_econtrade;
+package kr.ac.knu.bist.knu_econtrade.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Activity_Main extends AppCompatActivity {
+import kr.ac.knu.bist.knu_econtrade.R;
+
+public class Scene_Main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_activity_main);
+        setContentView(R.layout.activity_main_main);
     }
 }

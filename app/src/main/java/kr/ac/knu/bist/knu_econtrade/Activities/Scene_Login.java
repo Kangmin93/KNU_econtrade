@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import kr.ac.knu.bist.knu_econtrade.R;
 
 /**
@@ -23,6 +26,8 @@ import kr.ac.knu.bist.knu_econtrade.R;
  */
 
 public class Scene_Login extends Activity {
+    EditText Text_UserNumber, Text_UserID, Text_UserPasswd;
+    Button   Btn_Login;
 
     AlertDialog OutApp_Dialog = null;
 
@@ -31,11 +36,12 @@ public class Scene_Login extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_login);
 
-        Text_UserID =(EditText)findViewById(R.id.id);
-        Text_UserPasswd =(EditText)findViewById(R.id.password);
-        Button_Login = (Button)findViewById(R.id.LoginBtn);
+        Text_UserNumber = (EditText)findViewById(R.id.login_number);
+        Text_UserID     = (EditText)findViewById(R.id.login_id);
+        Text_UserPasswd = (EditText)findViewById(R.id.login_password);
+        Btn_Login       = (Button)findViewById(R.id.login_button);
 
-        final AlertDialog.Builder OutApp_Builder = new AlertDialog.Builder(Intro_LoginActivitiy.this);
+        final AlertDialog.Builder OutApp_Builder = new AlertDialog.Builder(Scene_Login.this);
         OutApp_Builder.setMessage("\'ECON & TRADE\'를 종료하시겠습니까?");
         OutApp_Builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
             @Override
@@ -65,14 +71,11 @@ public class Scene_Login extends Activity {
          *  3) User_InfoInstance 저장소를 생성한다.
          *  4) GetPHP.LoadUserInfoAccess 로 해당 로그인 유저의 정보를 가져온다.
          */
-        Button_Login.setOnClickListener(new View.OnClickListener() {
+        Btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /** 로그인하기 이전에 로그인 양식 체크를 실시한다.
-                 *  @return boolean */
-                Login_Enter = Check_Login_Template();
-
-                if (Login_Enter) {
+                /** 로그인하기 이전에 로그인 양식 체크를 실시한다.*/
+                if (Check_Login_Template()) {
                     String User_outputID = Text_UserID.getText().toString();
                     String User_outputPW = Text_UserPasswd.getText().toString();
 
@@ -91,6 +94,35 @@ public class Scene_Login extends Activity {
                     }
                 }
             }
-        });
+        );
+    }
+
+    private boolean Check_Login_Template() {
+        Matcher Match_ID, Match_Number, Match_Passwd;
+        Pattern Pattern_ID, Pattern_Number, Pattern_Passwd;
+        Pattern_Number = Pattern.compile("^[0-9]+$");
+        Pattern_ID = Pattern.compile("^(?:\\w+\\.?)*\\w+@(?:\\w+\\.)+\\w+$");
+        Pattern_Passwd = Pattern.compile("^[a-zA-Z0-9ㄱ-ㅎ가-흐]+$");
+
+        Match_Number    = Pattern_Number.matcher(Text_UserNumber.getText().toString());
+        Match_ID        = Pattern_ID.matcher(Text_UserID.getText().toString());
+        Match_Passwd    = Pattern_Passwd.matcher(Text_UserPasswd.getText().toString());
+
+        if(Text_UserNumber.getText().toString().length() == 0) {
+            Toast.makeText(getApplicationContext(), "학번이 입력되지 않았습니다.", Toast.LENGTH_SHORT).show();}
+        else if (Text_UserID.getText().toString().length() == 0) {
+            Toast.makeText(getApplicationContext(), "이메일이 입력되지 않았습니다.", Toast.LENGTH_SHORT).show();}
+        else if (Text_UserPasswd.getText().toString().length() == 0)
+            Toast.makeText(getApplicationContext(), "패스워드가 입력되지 않았습니다.", Toast.LENGTH_SHORT).show();
+        else if (!Match_Number.find())
+            Toast.makeText(getApplicationContext(), "유효한 학번을 입력해 주십시오.", Toast.LENGTH_SHORT).show();
+        else if (!Match_ID.find())
+            Toast.makeText(getApplicationContext(), "유효한 이메일 형식을 입력해주세요.", Toast.LENGTH_SHORT).show();
+        else if (!Match_Passwd.find())
+            Toast.makeText(getApplicationContext(), "비밀번호에 특수문자는 사용할 수 없습니다.", Toast.LENGTH_SHORT).show();
+        else
+            return true;
+
+        return false;
     }
 }
