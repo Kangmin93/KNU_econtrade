@@ -2,11 +2,9 @@ package kr.ac.knu.bist.knu_econtrade.Activities;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,12 +24,16 @@ public class Scene_Login extends Activity {
 
     AlertDialog OutApp_Dialog = null;
 
+    EditText Text_ID;
+    EditText Text_UserPasswd;
+    Button Button_Login;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_login);
 
-        Text_UserID =(EditText)findViewById(R.id.id);
+        Text_ID = (EditText)findViewById(R.id.id);
         Text_UserPasswd =(EditText)findViewById(R.id.password);
         Button_Login = (Button)findViewById(R.id.LoginBtn);
 
@@ -90,7 +92,8 @@ public class Scene_Login extends Activity {
                         Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }
-        });
+            });
+
+
     }
 }
