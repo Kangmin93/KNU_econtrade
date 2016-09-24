@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Activities.Scene_Intro">
+        <activity android:name=".Activities.Intro_IntroScene">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.Activity_Main"></activity>
+        <activity android:name=".Activities.Main_MainScene"></activity>
+        <activity android:name=".Activities.Intro_LoginScene"></activity>
     </application>
 
 </manifest>
