@@ -21,5 +21,4 @@
         <activity android:name=".Activities.Main_UNotice_MainScene"></activity>
         <activity android:name=".Activities.Intro_LoginScene"></activity>
     </application>
-
 </manifest>

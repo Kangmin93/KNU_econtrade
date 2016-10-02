@@ -36,7 +36,7 @@ public class Intro_LoginScene extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intrologin);
+        setContentView(R.layout.activity_intro_login);
 
         Text_Number = (EditText) findViewById(R.id.login_number);
         Text_ID = (EditText) findViewById(R.id.login_id);
@@ -44,6 +44,7 @@ public class Intro_LoginScene extends Activity {
         Button_Login = (Button) findViewById(R.id.login_button_login);
 
         final AlertDialog.Builder OutApp_Builder = new AlertDialog.Builder(Intro_LoginScene.this);
+
         OutApp_Builder.setMessage("\'ECON & TRADE\'를 종료하시겠습니까?");
         OutApp_Builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
             @Override
@@ -98,7 +99,8 @@ public class Intro_LoginScene extends Activity {
                         User_InfoInstance = Repo_UserInformSGT.getInstance();
                         GetPHP.LoadUserInfoAccess(User_outputID);*/
                     Intent local_intent = new Intent(Intro_LoginScene.this, Main_MainScene.class);
-                    startActivity(local_intent); finish();
+                    startActivity(local_intent);
+                    finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 }
