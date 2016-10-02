@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,7 +36,7 @@ public class Intro_LoginScene extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro_login);
+        setContentView(R.layout.activity_intrologin);
 
         Text_Number = (EditText) findViewById(R.id.login_number);
         Text_ID = (EditText) findViewById(R.id.login_id);
