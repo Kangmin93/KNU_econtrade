@@ -2,6 +2,7 @@ package kr.ac.knu.bist.knu_econtrade.Activities;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -80,7 +81,8 @@ public class Intro_LoginScene extends Activity {
             public void onClick(View v) {
                 /** 로그인하기 이전에 로그인 양식 체크를 실시한다.
                  *  @return boolean */
-                boolean Login_Enter = Check_Login_Template();
+//                boolean Login_Enter = Check_Login_Template();
+                boolean Login_Enter = true;
 
                 if (Login_Enter) {
                     String User_outputNB = Text_Number.getText().toString();
@@ -97,6 +99,8 @@ public class Intro_LoginScene extends Activity {
                         // LoadUserInfoAccess 에 넣어 실행시킨다.
                         User_InfoInstance = Repo_UserInformSGT.getInstance();
                         GetPHP.LoadUserInfoAccess(User_outputID);*/
+                    Intent local_intent = new Intent(Intro_LoginScene.this, Main_MainScene.class);
+                    startActivity(local_intent); finish();
                 } else {
                     Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
                 }
