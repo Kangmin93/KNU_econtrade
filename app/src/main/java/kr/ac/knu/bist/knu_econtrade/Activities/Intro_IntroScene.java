@@ -14,6 +14,7 @@ import kr.ac.knu.bist.knu_econtrade.R;
 /**
  * Created by Vertx on
  */
+//test
 
 public class Intro_IntroScene extends Activity {
 
