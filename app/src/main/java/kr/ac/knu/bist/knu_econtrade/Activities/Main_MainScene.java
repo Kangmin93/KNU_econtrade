@@ -46,12 +46,18 @@ public class Main_MainScene extends AppCompatActivity {
         View_SideMenu = (ExpandableListView) findViewById(R.id.main_sidebar_list);
         View_SideMenu.setAdapter(new Adapter_MainSidebar(getApplicationContext(), List_GroupMenu, List_ChildMenu));
 
+        // 1. 학교 공지사항, 2. 학부 공지사항
+        // 3. 학생회 공지 & 문의
+        // 4. 성적 시간표 a. 내 시간표 b. 내 성적 c. 강의 계획서 d. 강의 평가
+        // 5. 식단 a. 기숙사 b. 교내식당
+        // 6. 도서관 a. 열람실 현황 b. 도서대출 현황
+        // 7. 세미나실
         View_SideMenu.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int position, long id) {
                 switch (position) {
                     case 0 : // 학교 공지사항
-                        Local_Intent = new Intent(getApplicationContext(), Main_UNotice_MainScene.class);
+                        Local_Intent = new Intent(getApplicationContext(), Main_UnivNot_MainScene.class);
                         startActivity(Local_Intent);
                         break;
                     case 1 : // 학부 공지사항
@@ -73,21 +79,14 @@ public class Main_MainScene extends AppCompatActivity {
                 return true;
             }
         });
-
-        // 1. 학교 공지사항, 2. 학부 공지사항
-        // 3. 학생회 공지 & 문의
-        // 4. 성적 시간표 a. 내 시간표 b. 내 성적 c. 강의 계획서 d. 강의 평가
-        // 5. 식단 a. 기숙사 b. 교내식당
-        // 6. 도서관 a. 열람실 현황 b. 도서대출 현황
-        // 7. 세미나실
         View_SideMenu.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView expandableListView, View view, int position, int group_pos, long id) {
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int group_pos, int child_pos, long id) {
                 switch (group_pos) {
                     case 3 :
-                        switch (position) {
+                        switch (child_pos) {
                             case 0 :
-                                Local_Intent = new Intent(getApplicationContext(), Main_UNotice_MainScene.class);
+                                Local_Intent = new Intent(getApplicationContext(), Main_UnivNot_MainScene.class);
                                 startActivity(Local_Intent);
                                 break;
                             case 1 :
@@ -99,18 +98,18 @@ public class Main_MainScene extends AppCompatActivity {
                         }
                         break;
                     case 4 :
-                        switch (position) {
+                        switch (child_pos) {
                             case 0 :
-                                Local_Intent = new Intent(getApplicationContext(), Main_UNotice_MainScene.class);
+                                Local_Intent = new Intent(getApplicationContext(), Main_UnivNot_MainScene.class);
                                 startActivity(Local_Intent);
                                 break;
                             case 1 :
                         }
                         break;
                     case 5 :
-                        switch (position) {
-                            case 0 :
-                                Local_Intent = new Intent(getApplicationContext(), Main_UNotice_MainScene.class);
+                        switch (child_pos) {
+                            case 0 : //TODO : Children Item 클릭 시, 화면 전환이 되도록 할 것.
+                                Local_Intent = new Intent(getApplicationContext(), Main_Library_MainScene.class);
                                 startActivity(Local_Intent);
                                 break;
                             case 1 :
