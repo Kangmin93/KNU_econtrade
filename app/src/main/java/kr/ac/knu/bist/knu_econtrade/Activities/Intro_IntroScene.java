@@ -23,7 +23,8 @@ public class Intro_IntroScene extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
+        /*no title bar, and status bar*/
         int Local_Flag = WindowManager.LayoutParams.FLAG_FULLSCREEN;
         getWindow().setFlags(Local_Flag, Local_Flag);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
