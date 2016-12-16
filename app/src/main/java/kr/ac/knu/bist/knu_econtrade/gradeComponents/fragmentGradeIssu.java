@@ -103,7 +103,7 @@ public class fragmentGradeIssu extends Fragment {
         ConnManager manager = new ConnManager();
         try {
             String ret = manager.execute(ConnManager.main_url+ConnManager.record_url,"certRecEnq.recDiv","1","id","certRecEnqGrid","columnsProperty","certRecEnqColumns","rowsProperty",
-                    "certRecEnqs","emptyMessageProperty","certRecEngitqNotFoundMessage","viewColumn","yr_trm,subj_div_cde,subj_cde,subj_nm,unit,rec_rank_cde","checkable","false",
+                    "certRecEnqs","emptyMessageProperty","certRecEnqNotFoundMessage","viewColumn","yr_trm,subj_div_cde,subj_cde,subj_nm,unit,rec_rank_cde","checkable","false",
                     "showRowNumber","false","paged","false","serverSortingYn","false","lastColumnNoRender","false","_","").get();
 
             Source source = new Source(ret);
