@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KNU_econtrade.iml" filepath="$PROJECT_DIR$/KNU_econtrade.iml" />
+      <module fileurl="file://$PROJECT_DIR$/KNU_econtrade.iml" filepath="$PROJECT_DIR$/KNU_econtrade.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jericho-android.3.1/jericho-android.3.1.iml" filepath="$PROJECT_DIR$/jericho-android.3.1/jericho-android.3.1.iml" />
     </modules>
   </component>
 </project>
