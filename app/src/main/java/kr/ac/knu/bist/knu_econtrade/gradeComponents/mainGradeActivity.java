@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 import kr.ac.knu.bist.knu_econtrade.R;
 import kr.ac.knu.bist.knu_econtrade.Widgets.Adapter_SectionsPager;
 import kr.ac.knu.bist.knu_econtrade.Widgets.slidingTabLayout;
@@ -22,6 +24,8 @@ public class mainGradeActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private Adapter_SectionsPager mSectionsPagerAdapter;
+
+    private ArrayList<listGradeItem> mlistContainter = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -184,7 +184,7 @@ public class fragmentGradeIssu extends Fragment {
 
                 for(int C_TR = 0; C_TR < BBSTBody.getAllElements(HTMLElementName.TR).size(); C_TR++) {
                     try {
-                        Element BBStrConnected = (Element) BBSTBody.getAllElements(HTMLElementName.TR).get(C_TR);
+                        Element BBStrConnected = BBSTBody.getAllElements(HTMLElementName.TR).get(C_TR);
 
                         Element BBSYeaRnSem = BBStrConnected.getAllElements(HTMLElementName.TD).get(0);
                         Element BBSSort = BBStrConnected.getAllElements(HTMLElementName.TD).get(1);
