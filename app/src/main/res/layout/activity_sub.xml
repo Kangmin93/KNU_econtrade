@@ -31,6 +31,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
+            <ListView
+                android:id="@+id/attached_listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ></ListView>
+
             <TextView
                 android:id="@+id/knu_notice"
                 android:text="내용"
@@ -53,6 +59,7 @@
         </LinearLayout>
 
     </ScrollView>
+
 
 
 </LinearLayout>

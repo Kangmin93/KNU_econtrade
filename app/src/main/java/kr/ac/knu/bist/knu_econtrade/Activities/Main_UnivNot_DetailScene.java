@@ -12,14 +12,20 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -65,7 +71,7 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
     private BBSListAdapter BBSAdapter = null;
     private ListView BBSList;
     private int BBSlocate;
-    private TextView title, content;
+    private TextView title, content, attachedfile;
     private ImageView imageview;
     private List<String> imageList = null;
     private List<URL> urlList = null;
@@ -73,27 +79,36 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
     private ConnectivityManager cManager;
     private NetworkInfo mobile;
     private NetworkInfo wifi;
+    private ArrayList<String> attached_list;
     private ScrollView scroll;
     private PhotoViewAttacher photo;
     ArrayList<Info_ListData> mListData = new ArrayList<>();
-    private String attached_link1, attached_link2, attached_link3, attached_link4, attached_link5, attached_link;
+    private String attached_link1, attached_link2, attached_link3, attached_link4, attached_link5;
+    private ArrayList<String> attached_link;
     private String doc_no, appl_no, file_nbr = "";
-
+    ArrayList<String> Attach_name;
+    ArrayList<String> Attach_link;
+    private ArrayAdapter<Element> adapter;
     private DownloadManager dm;
     private DownloadManager.Request request;
     private Uri urlToDownload;
     private long latestId = -1;
+    private ArrayList<String> attach_name_list;
+    private ListView attached_listview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
         title = (TextView) findViewById(R.id.knu_notice_title);
-        scroll = (ScrollView)findViewById(R.id.myscrollView);
+        scroll = (ScrollView) findViewById(R.id.myscrollView);
         linearLayout = (LinearLayout) findViewById(R.id.imageLayout);
         content = (TextView) findViewById(R.id.knu_notice);
         imageview = (ImageView) findViewById(R.id.knu_notice_image);
-
+        attached_listview = (ListView) findViewById(R.id.attached_listview);
+        Attach_name = new ArrayList<String>();
+        Attach_link = new ArrayList<String>();
+        attached_link = new ArrayList<String>();
         Intent intent = getIntent(); // 앞서 보낸 url을 받는다.
         url = intent.getExtras().getString("url");
         //attached link sample
@@ -103,11 +118,23 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
         attached_link3 = "&appFile.file_nbr=";
         attached_link4 = "&bbs_cde=1&btin.doc_no=";
         attached_link5 = "&btin.bbs_cde=1&btin.appl_no=";
-        dm = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+        dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+        attached_listview = (ListView) findViewById(R.id.attached_listview);
 
-
+        /*                          선언                       선언                      선언                             선언                                선언                 */
 
         Log.e("tag", url);
+        attached_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //file download 할 부분.
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(attached_link.get(position)));
+                request.setTitle("down");
+                dm.enqueue(request);
+
+            }
+        });
 
         if (isInternetCon()) { //false 반환시 if 문안의 로직 실행
             Toast.makeText(getApplicationContext(), "인터넷에 연결되지않아 불러오기를 중단합니다.", Toast.LENGTH_SHORT).show();
@@ -122,8 +149,10 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
             }
         }
 
+
     }//onCreate end
 
+    /*              On Create                           On Create                   On create                           Oncreate                        */
     protected void onStop() { //멈추었을때 다이어로그를 제거해주는 메서드
         super.onStop();
         if (progressDialog != null)
@@ -202,39 +231,52 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
                 }
                 Element Attach_DIV = (Element) source.getAllElements(HTMLElementName.DIV).get(BBSlocate);
                 try {
-                    Element Attach_Link = (Element) Attach_DIV.getAllElements(HTMLElementName.A).get(0);
-                    String Attach_name = Attach_Link.getContent().toString();
-                    String attach_link = Attach_Link.toString();
+                    List<Element> Temp = Attach_DIV.getAllElements(HTMLElementName.A);
+                    Attach_name = new ArrayList<String>();
+                    Attach_link = new ArrayList<String>();
 
-                    Log.e("attach_link", Attach_name);
-                    int link_start = attach_link.indexOf("'");
-                    int link_end = attach_link.indexOf("'", link_start + 1);
-                    appl_no = attach_link.substring(link_start + 1, link_end);
+                    for (int i = 0; i < Temp.size(); i++) {
+                        Element Attach_Link = (Element) Temp.get(i);
+                        Log.e("test", Attach_Link.toString());
+                        if (i % 2 == 0) {
+                            Attach_name.add(Attach_Link.getContent().toString());
+                            Attach_link.add(Attach_Link.toString());
+                        }
+                    }
+                    attach_name_list = new ArrayList<String>();
+                    Log.e("attach name size is", Attach_name.size() + "");
+                    for (int i = 0; i < Attach_name.size(); i++) {
+                        attach_name_list.add(Attach_name.get(i).toString());
+                        Log.e("attach_link get", Attach_link.get(i) + "");
+                    }
 
-                    int link_start2 = attach_link.indexOf("'", link_end + 1);
-                    int link_end2 = attach_link.indexOf("'", link_start2 + 1);
-                    file_nbr = attach_link.substring(link_start2 + 1, link_end2);
 
-                    int link_start3 = attach_link.indexOf("'", link_end2 + 1);
-                    int link_end3 = attach_link.indexOf("'", link_start3 + 1);
-                    doc_no = attach_link.substring(link_start3 + 1, link_end3);
-                    Log.e("asdfasdfa", link_start + "/" + link_end + "/" + appl_no + "/" + file_nbr + "/" + doc_no);
+                    for (int i = 0; i < Attach_name.size(); i++) {
+                        String attach_link = Temp.get(2 * i).toString();
 
-                    attached_link = attached_link1 +appl_no + attached_link2 + file_nbr + attached_link3 + doc_no + attached_link4 + appl_no + attached_link5 + file_nbr;
+                        Log.e("attach_link", attach_link);
 
+                        int link_start = attach_link.indexOf("'");
+                        int link_end = attach_link.indexOf("'", link_start + 1);
+                        appl_no = attach_link.substring(link_start + 1, link_end);
+
+                        int link_start2 = attach_link.indexOf("'", link_end + 1);
+                        int link_end2 = attach_link.indexOf("'", link_start2 + 1);
+                        file_nbr = attach_link.substring(link_start2 + 1, link_end2);
+
+                        int link_start3 = attach_link.indexOf("'", link_end2 + 1);
+                        int link_end3 = attach_link.indexOf("'", link_start3 + 1);
+                        doc_no = attach_link.substring(link_start3 + 1, link_end3);
+                        Log.e("asdfasdfa", link_start + "/" + link_end + "/" + appl_no + "/" + file_nbr + "/" + doc_no);
+
+                        attached_link.add(attached_link1 + appl_no + attached_link2 + file_nbr + attached_link3 + doc_no + attached_link4 + appl_no + attached_link5 + file_nbr + "");
+                        Log.e("attached_link", attached_link.get(i));
+                    }
                     /*attached_link는 파일을 다운로드 받을 수 있는 url 주소입니다.
                     * Attach_name은 파싱한 file명입니다.
                     * */
-                    //file download 할 부분.
-                   /*  urlToDownload = Uri.parse(attached_link);
-                    List<String> pathSegments = urlToDownload.getPathSegments();
-                    request = new DownloadManager.Request(urlToDownload);
-                    request.setTitle("down test");
-                    request.setDescription("설명");
-                    request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, pathSegments.get(pathSegments.size() - 1));
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).mkdirs();
-                    latestId = dm.enqueue(request);*/
-                }catch (Exception e){
+
+                } catch (Exception e) {
                     //error가 발생하면 첨부된 파일이 없다는 것임.
                     //**첨부파일 유무 검사해야됨.**
                     e.printStackTrace();
@@ -269,9 +311,13 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
                     @Override
                     public void run() {
 
-
-                        title.setText(Notice_title + "\n" + Notice_writer + "/" + Notice_date);
+                        title.setText("제목: " + Notice_title + "\n" + "작성자: " + Notice_writer + "/" + "게시일: " + Notice_date);
                         //content.setText(Html.fromHtml(Notice));
+                        //attach_name_list.size() ->첨부된 파일 개수
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.attach_item, R.id.attach_name, attach_name_list);
+                        attached_listview.setAdapter(adapter);
+                        setListViewHeightBasedOnChildren(attached_listview);
+
                         content.setText(Html.fromHtml(Notice2));
                         content.setMovementMethod(LinkMovementMethod.getInstance());
                         for (int i = 0; i < 10; i++) {
@@ -293,13 +339,14 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
 
 
     }
-    public void writeFile(InputStream is, OutputStream os) throws IOException
-    {
+
+    public void writeFile(InputStream is, OutputStream os) throws IOException {
         int c = 0;
-        while((c = is.read()) != -1)
+        while ((c = is.read()) != -1)
             os.write(c);
         os.flush();
     }
+
     private boolean isInternetCon() {
         cManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         mobile = cManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE); //모바일 데이터 여부
@@ -318,25 +365,48 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
         }
         return result;
     }
+
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         IntentFilter completeFilter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
         registerReceiver(completeReceiver, completeFilter);
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         unregisterReceiver(completeReceiver);
     }
 
-    private BroadcastReceiver completeReceiver = new BroadcastReceiver(){
+    private BroadcastReceiver completeReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Toast.makeText(context, "다운로드가 완료되었습니다.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "다운로드가 완료되었습니다.", Toast.LENGTH_SHORT).show();
         }
 
     };
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
 }
