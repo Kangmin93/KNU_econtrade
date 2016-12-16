@@ -65,7 +65,7 @@ public class ConnManager extends AsyncTask<String, Void, String> {
 
     public static void saveCookie(HttpURLConnection conn) {
         String cookieTemp = conn.getHeaderField("Set-Cookie");
-        if(cookieTemp != null) {
+        if(m_session == false && cookieTemp != null) {
             m_cookies = cookieTemp;
             m_session = true;
         }
