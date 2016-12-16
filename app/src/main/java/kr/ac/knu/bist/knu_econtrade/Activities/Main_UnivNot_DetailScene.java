@@ -18,6 +18,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
@@ -140,6 +141,7 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
                 //file download 할 부분.
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(attached_link.get(position)));
                 request.setTitle(attach_name_list.get(position));
+                request.setDestinationInExternalFilesDir(getApplicationContext(), Environment.DIRECTORY_DOWNLOADS,attach_name_list.get(position));
                 download_file_ID= dm.enqueue(request);
             }
         });
