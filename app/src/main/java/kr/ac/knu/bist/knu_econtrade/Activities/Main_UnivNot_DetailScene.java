@@ -21,6 +21,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +73,7 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
     private ConnectivityManager cManager;
     private NetworkInfo mobile;
     private NetworkInfo wifi;
+    private ScrollView scroll;
     private PhotoViewAttacher photo;
     ArrayList<Info_ListData> mListData = new ArrayList<>();
     private String attached_link1, attached_link2, attached_link3, attached_link4, attached_link5, attached_link;
@@ -87,9 +89,11 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
         title = (TextView) findViewById(R.id.knu_notice_title);
+        scroll = (ScrollView)findViewById(R.id.myscrollView);
         linearLayout = (LinearLayout) findViewById(R.id.imageLayout);
         content = (TextView) findViewById(R.id.knu_notice);
         imageview = (ImageView) findViewById(R.id.knu_notice_image);
+
         Intent intent = getIntent(); // 앞서 보낸 url을 받는다.
         url = intent.getExtras().getString("url");
         //attached link sample
