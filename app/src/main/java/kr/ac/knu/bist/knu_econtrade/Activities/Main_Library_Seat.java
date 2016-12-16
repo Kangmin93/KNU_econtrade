@@ -8,7 +8,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -45,8 +49,8 @@ public class Main_Library_Seat extends AppCompatActivity {
     private NetworkInfo wifi;
     private GridView grid;
     ArrayAdapter<String> seat;
-    private ArrayList<String> SEAT_String = new ArrayList<>();
-
+    private String[][] SEAT_String = new String[13][6];
+    private ArrayList<String> Seat_ArrayList;
 
     @Override
     protected void onStop() { //멈추었을때 다이어로그를 제거해주는 메서드
@@ -61,7 +65,7 @@ public class Main_Library_Seat extends AppCompatActivity {
         setContentView(R.layout.layout_activity_library_opening);
         grid = (GridView)findViewById(R.id.grid);
         url = "http://libseat.knu.ac.kr/domian5.asp";
-        seat = new ArrayAdapter<String>(getApplicationContext(), R.layout.grid, SEAT_String );
+        Seat_ArrayList = new ArrayList<String>();
 
         grid.setAdapter(seat);
         if (isInternetCon()) { //false 반환시 if 문안의 로직 실행
@@ -79,6 +83,33 @@ public class Main_Library_Seat extends AppCompatActivity {
         }
 
 
+    }
+    public class gridAdapter extends BaseAdapter{
+
+        LayoutInflater inflater;
+
+        public gridAdapter(){
+
+        }
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return null;
+        }
     }
 
     private boolean isInternetCon() {
@@ -119,7 +150,7 @@ public class Main_Library_Seat extends AppCompatActivity {
                     URL = new URL(url);
                     Log.e("url", URL.toString());
                     InputStream html = URL.openStream();
-                    source = new Source(new InputStreamReader(html , "euc-kr")); //소스를 UTF-8 인코딩으로 불러온다.
+                    source = new Source(new InputStreamReader(html, "euc-kr")); //소스를 UTF-8 인코딩으로 불러온다.
                     source.fullSequentialParse();
                     Log.e("msg", source.fullSequentialParse().toString());
                 } catch (Exception e) {
@@ -130,10 +161,26 @@ public class Main_Library_Seat extends AppCompatActivity {
                 final Element SEAT = (Element) source.getAllElements(HTMLElementName.TABLE).get(1);
                 //tr 0, 1은 가져올 필요 없음.
 
-                for(int i=0;i<13;i++){
+                for (int i = 0; i < 13; i++) {
+                    for (int j = 0; j < 6; j++) {
+                        String temp = SEAT.getAllElements(HTMLElementName.TR).get(i + 1).getAllElements(HTMLElementName.TD).get(j).getContent().toString();
+                        SEAT_String[i][j]=temp.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "").replaceAll("&nbsp;", "").replaceAll("\t","").replaceAll(" ", "");
+                    }
+                }
+                for(int i=1;i<13;i++){
                     for(int j=0;j<6;j++){
-                        String temp = SEAT.getAllElements(HTMLElementName.TR).get(i+2).getAllElements(HTMLElementName.TD).get(j).getContent().toString();
-                        SEAT_String.add(temp.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "").replaceAll("&nbsp;",""));
+                        if(j%5==0){
+                            Double a = Double.parseDouble(SEAT_String[i][2]);
+                            Double b = Double.parseDouble(SEAT_String[i][3]);
+                            String result = ((b/a * 100)+"").substring(0,4)+"%";
+                            Log.e("count",i+"/"+j);
+                            SEAT_String[i][5]=result;
+                        }
+                    }
+                }
+                for(int i=0;i<13;i++){
+                    for(int j=1;j<6;j++){
+                        Seat_ArrayList.add(SEAT_String[i][j]);
                     }
                 }
 
@@ -143,10 +190,12 @@ public class Main_Library_Seat extends AppCompatActivity {
 
 
                 Handler mHandler = new Handler(Looper.getMainLooper());
+                //UI 변경 이 곳에서 할 것.
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.library_seat_item, R.id.seat_textview, Seat_ArrayList);
+                        grid.setAdapter(adapter);
                         // BBSAdapter.notifyDataSetChanged(); //모든 작업이 끝나면 리스트 갱신
                         progressDialog.dismiss(); //모든 작업이 끝나면 다이어로그 종료
                     }
@@ -157,6 +206,6 @@ public class Main_Library_Seat extends AppCompatActivity {
 
         }.start();
 
-
     }
+
 }

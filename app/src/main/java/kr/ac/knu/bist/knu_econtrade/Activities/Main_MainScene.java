@@ -120,7 +120,7 @@ public class Main_MainScene extends AppCompatActivity {
                     case 5 :
                         switch (child_pos) {
                             case 0 : //TODO : Children Item 클릭 시, 화면 전환이 되도록 할 것.
-                                Local_Intent = new Intent(getApplicationContext(), Main_Library_MainScene.class);
+                                Local_Intent = new Intent(getApplicationContext(), Main_Library_Seat.class);
                                 startActivity(Local_Intent);
                                 break;
                             case 1 :
