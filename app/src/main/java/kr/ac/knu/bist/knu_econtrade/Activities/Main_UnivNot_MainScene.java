@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.ac.knu.bist.knu_econtrade.Adapters.BBSListAdapter;
-import kr.ac.knu.bist.knu_econtrade.Informations.Info_ListData;
+import kr.ac.knu.bist.knu_econtrade.noticeComponents.Info_ListData;
 import kr.ac.knu.bist.knu_econtrade.R;
 
 /**
@@ -89,7 +89,7 @@ public class Main_UnivNot_MainScene extends AppCompatActivity {
                             Log.e("last","마지막 아이템 클릭");
                         }else {
                             Info_ListData mData = mListData.get(position); // 클릭한 포지션의 데이터를 가져온다.
-                            String URL_BCS = mData.mUrl; //가져온 데이터 중 url 부분만 적출해낸다.
+                            String URL_BCS = mData.getmUrl(); //가져온 데이터 중 url 부분만 적출해낸다.
                             Intent intent = new Intent(getApplicationContext(), Main_UnivNot_DetailScene.class);
                             intent.putExtra("url", URL_PRIMARY + URL_BCS);
                             startActivity(intent);

@@ -12,7 +12,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
@@ -47,7 +46,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import kr.ac.knu.bist.knu_econtrade.Adapters.BBSListAdapter;
-import kr.ac.knu.bist.knu_econtrade.Informations.Info_ListData;
+import kr.ac.knu.bist.knu_econtrade.noticeComponents.Info_ListData;
 import kr.ac.knu.bist.knu_econtrade.R;
 import uk.co.senab.photoview.PhotoViewAttacher;
 

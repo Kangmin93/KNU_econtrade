@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import kr.ac.knu.bist.knu_econtrade.Informations.Info_ListData;
+import kr.ac.knu.bist.knu_econtrade.noticeComponents.Info_ListData;
 import kr.ac.knu.bist.knu_econtrade.R;
 
 /**
@@ -68,14 +68,14 @@ public class BBSListAdapter extends BaseAdapter {
         Info_ListData mData = mInfoListData.get(position);
 
 
-        if (mData.mType.equals("공지")) {
-            holder.mTitle.setText(Html.fromHtml("[공지]" + mData.mTitle));
+        if (mData.getmType().equals("공지")) {
+            holder.mTitle.setText(Html.fromHtml("[공지]" + mData.getmTitle()));
         } else {
-            holder.mTitle.setText("[" + mData.mType + "]" + mData.mTitle);
+            holder.mTitle.setText("[" + mData.getmType() + "]" + mData.getmTitle());
         }
 
-        holder.mWriter.setText(mData.mWriter);
-        holder.mDate.setText(mData.mDate);
+        holder.mWriter.setText(mData.getmWriter());
+        holder.mDate.setText(mData.getmDate());
 
         return convertView;
 
