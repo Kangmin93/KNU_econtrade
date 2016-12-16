@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,8 @@ import kr.ac.knu.bist.knu_econtrade.noticeComponents.Info_ListData;
 import kr.ac.knu.bist.knu_econtrade.R;
 import kr.ac.knu.bist.knu_econtrade.noticeComponents.adapterNoticeinfoItem;
 
+import static java.security.AccessController.getContext;
+
 /**
  * Created by Vertx on 2016-09-10.
  */
@@ -47,6 +50,7 @@ public class Main_Notice_MainScene extends AppCompatActivity {
     private static String URL_ECON_MIDDLE = "https://econ.knu.ac.kr:10890/index.php?mid=board_notice";
     private static String URL_ECONRSS = "https://econ.knu.ac.kr:10890/index.php?mid=board_notice&act=rss";
 
+    // asdfasdf
     private ConnectivityManager cManager;
     private NetworkInfo mobile;
     private NetworkInfo wifi;
@@ -57,11 +61,10 @@ public class Main_Notice_MainScene extends AppCompatActivity {
     private int Board_num= 1;
 
     private XmlPullParser xpp;
-
-    private View emptyView;
     private Source source;
     private ProgressDialog progressDialog;
 
+    private LinearLayoutManager mLinearLayoutManager;
     private RecyclerView recylerViewContainer;
     private adapterNoticeinfoItem mAdapter;
     private ArrayList<Info_ListData> mListData = new ArrayList<>();
@@ -78,29 +81,23 @@ public class Main_Notice_MainScene extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        url = URL_PRIMARY + GENNOTICE_MIDDLE+ Board_num + GETNOTICE; //파싱하기전 PRIMARY URL 과 공지사항 URL 을 합쳐 완전한 URL 을만든다.
         getItemlistFromWebpage();
     }
 
     // CUSTOM METHODS
     private void setDesignComponents() {
+        mLinearLayoutManager = new LinearLayoutManager(Main_Notice_MainScene.this);
+        mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mLinearLayoutManager.setReverseLayout(false);
+
         recylerViewContainer = (RecyclerView) findViewById(R.id.notice_board_list);
+        recylerViewContainer.setLayoutManager(mLinearLayoutManager);
+        recylerViewContainer.setHasFixedSize(true);
+
         mAdapter = new adapterNoticeinfoItem(getApplicationContext(), mListData);
         recylerViewContainer.setAdapter(mAdapter);
         // FOOTER 추가해줘야함
-
-        emptyView = findViewById(R.id.emptyview);
-        setRecycleViewIsEmpty();
-    }
-
-    private void setRecycleViewIsEmpty() {
-        if (mListData.isEmpty()) {
-            recylerViewContainer.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-        } else {
-            recylerViewContainer.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
-        }
     }
 
     private void getItemlistFromWebpage() {
@@ -111,8 +108,7 @@ public class Main_Notice_MainScene extends AppCompatActivity {
             try {
 //                processRetrieveItems(); // RSS를 이용하여 아이템을 얻음.
                 process();
-//                setRecycleViewIsEmpty(); // 리사이클 뷰에 아이템들이 있는가 확인
-                recylerViewContainer.getAdapter().notifyDataSetChanged(); // 갱신
+                mAdapter.notifyDataSetChanged(); // 갱신
             } catch (Exception e) {
                 Log.d("ERROR", e + "");
 
@@ -275,7 +271,7 @@ public class Main_Notice_MainScene extends AppCompatActivity {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        recylerViewContainer.getAdapter().notifyDataSetChanged(); // 갱신
+                        mAdapter.notifyDataSetChanged(); // 갱신
                         progressDialog.dismiss(); //모든 작업이 끝나면 다이어로그 종료
                     }
                 }, 0);

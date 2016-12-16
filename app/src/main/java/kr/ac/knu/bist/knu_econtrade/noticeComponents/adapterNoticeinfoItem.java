@@ -11,10 +11,10 @@ import kr.ac.knu.bist.knu_econtrade.R;
 
 /**
  * Created by Vertx on 2016-08-04.
- *
  */
 
-public class adapterNoticeinfoItem extends noticeRecyclerView.Adapter<noticeItemViewHolder> {
+public class adapterNoticeinfoItem extends noticeRecyclerView.Adapter<noticeItemViewHolder>
+        implements View.OnClickListener {
     public Context context;
     private LayoutInflater mInflater;
     private ArrayList<Info_ListData> listChild = new ArrayList<>();
@@ -26,6 +26,11 @@ public class adapterNoticeinfoItem extends noticeRecyclerView.Adapter<noticeItem
 
         this.mInflater = LayoutInflater.from(context);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        
     }
 
     @Override
