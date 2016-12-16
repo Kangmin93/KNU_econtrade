@@ -5,7 +5,8 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        style="@style/Design_ListItemTemplate">
+        style="@style/Design_ListItemTemplate"
+        android:background="@drawable/back">
 
         <TextView
             android:id="@+id/child_menutext"

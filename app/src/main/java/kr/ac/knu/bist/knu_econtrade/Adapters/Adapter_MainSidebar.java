@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ExpandableListView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -69,7 +67,7 @@ public class Adapter_MainSidebar extends BaseExpandableListAdapter {
         if ( v == null ) {
             LayoutInflater inflater =
                     (LayoutInflater) Object_Context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = (LinearLayout)inflater.inflate( R.layout.listitem_main_group, null);
+            v = inflater.inflate( R.layout.listitem_sidebar_group, null);
         }
         TextView View_Subject = (TextView) v.findViewById(R.id.group_menutext);
         View_Subject.setText( groupName );
@@ -86,7 +84,7 @@ public class Adapter_MainSidebar extends BaseExpandableListAdapter {
         if ( v == null ) {
             LayoutInflater inflater =
                     (LayoutInflater) Object_Context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = (LinearLayout)inflater.inflate( R.layout.listitem_main_children, null);
+            v = inflater.inflate( R.layout.listitem_sidebar_child, null);
         }
         TextView View_Child = (TextView) v.findViewById(R.id.child_menutext);
         View_Child.setText( childName );
@@ -97,7 +95,7 @@ public class Adapter_MainSidebar extends BaseExpandableListAdapter {
 
     @Override
     public boolean isChildSelectable( int groupPosition, int childPosition ) {
-        return false;
+        return true;
     }
 
     @Override

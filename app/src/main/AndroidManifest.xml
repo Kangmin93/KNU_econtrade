@@ -30,5 +30,7 @@
         <activity android:name=".Activities.Main_Library_MainScene"></activity>
         <activity android:name=".Activities.Main_Council_MainScene"></activity>
         <activity android:name=".Activities.Main_Seminar_"></activity>
+
+        <activity android:name=".gradeComponents.mainGradeActivity"></activity>
     </application>
 </manifest>

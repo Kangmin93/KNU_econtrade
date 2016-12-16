@@ -34,7 +34,6 @@ import kr.ac.knu.bist.knu_econtrade.R;
 /**
  * Created by Vertx on 2016-09-10.
  * 10-10-28 : 덕윤이가 만들어놓은 공지사항 게시판을 옮김, 및 DEPRECATED 된 함수 대체완료.
- * TODO : 정리
  */
 public class Main_UnivNot_MainScene extends AppCompatActivity {
 
@@ -132,9 +131,7 @@ public class Main_UnivNot_MainScene extends AppCompatActivity {
                 return true;
         } else {
             // not connected to the internet
-
         }
-
         return false;
     }
 
