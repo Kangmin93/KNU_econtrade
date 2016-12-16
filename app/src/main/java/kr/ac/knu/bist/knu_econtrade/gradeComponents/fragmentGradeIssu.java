@@ -118,7 +118,12 @@ public class fragmentGradeIssu extends Fragment {
                 String itemName = elements_sub.get(4).getTextExtractor().toString();
                 String itemSort = elements_sub.get(2).getTextExtractor().toString();
                 String itemCode = elements_sub.get(3).getTextExtractor().toString();
-                Integer itemUnit = new Integer(elements_sub.get(5).getTextExtractor().toString());
+                Integer itemUnit;
+                if(elements_sub.get(5).getTextExtractor().toString() != "") {
+                    itemUnit = new Integer(elements_sub.get(5).getTextExtractor().toString());
+                } else {
+                    itemUnit = 0;
+                }
                 String itemRank = elements_sub.get(6).getTextExtractor().toString();
                 listChildItems.add(new listGradeItem(itemYear,itemSemester,itemName,itemSort,itemCode,itemUnit,itemRank));
             }
