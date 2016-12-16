@@ -35,7 +35,7 @@ public class gradeItemViewHolder extends RecyclerView.ViewHolder {
         this.referenceItem = item;
         this.itemName.setText(item.getItemName());
         this.itemSort.setText(item.getItemSort());
-        this.itemCredit.setText(item.getItemUnit());
+        this.itemCredit.setText(item.getItemUnit()+"");
         this.itemScore.setText(item.getItemRank());
     }
 }

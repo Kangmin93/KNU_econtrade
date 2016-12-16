@@ -10,41 +10,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <kr.ac.knu.bist.knu_econtrade.gradeComponents.gradeRecyclerView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/grade_board_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </kr.ac.knu.bist.knu_econtrade.gradeComponents.gradeRecyclerView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/emptyview"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/daily_empty_image"
-            android:layout_width="match_parent"
-            android:layout_height="144dp"
-            android:src="@drawable/dev_noitems"
-            android:baselineAlignBottom="false"
-            android:adjustViewBounds="false"
-            android:longClickable="false"
-            android:nestedScrollingEnabled="false"
-            android:alpha="0.5"/>
-
-        <TextView
-            android:id="@+id/daily_empty_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="There are no items!"
-            android:textColor="#999999"
-            android:textSize="18dp"
-            android:textStyle="bold"/>
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
 </LinearLayout>

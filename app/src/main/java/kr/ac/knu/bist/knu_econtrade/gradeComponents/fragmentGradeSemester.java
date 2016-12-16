@@ -25,7 +25,6 @@ import kr.ac.knu.bist.knu_econtrade.R;
  */
 public class fragmentGradeSemester extends Fragment {
     private View activityView;
-    private View emptyView;
 
     private RecyclerView recylerViewContainer;
     private adapterGradeItem mAdapter;
@@ -50,18 +49,5 @@ public class fragmentGradeSemester extends Fragment {
         mAdapter = new adapterGradeItem(this.getContext(), listChildItems);
         recylerViewContainer.setAdapter(mAdapter);
 
-        emptyView = activityView.findViewById(R.id.emptyview);
-        setRecycleViewIsEmpty();
-    }
-
-    private void setRecycleViewIsEmpty() {
-        if (listChildItems.isEmpty()) {
-            recylerViewContainer.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-        }
-        else {
-            recylerViewContainer.setVisibility(View.VISIBLE);
-            emptyView.setVisibility(View.GONE);
-        }
     }
 }
