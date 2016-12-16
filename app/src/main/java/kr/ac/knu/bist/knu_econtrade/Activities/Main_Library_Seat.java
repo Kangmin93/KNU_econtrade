@@ -32,7 +32,7 @@ import kr.ac.knu.bist.knu_econtrade.R;
  * TODO : BUG(2) 글자 겹침 현상 발생.
  */
 
-public class Main_Library_MainScene extends AppCompatActivity {
+public class Main_Library_Seat extends AppCompatActivity {
 
     private String url;
     private java.net.URL URL;
@@ -65,7 +65,7 @@ public class Main_Library_MainScene extends AppCompatActivity {
 
         grid.setAdapter(seat);
         if (isInternetCon()) { //false 반환시 if 문안의 로직 실행
-            Toast.makeText(Main_Library_MainScene.this, "인터넷에 연결되지않아 불러오기를 중단합니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Main_Library_Seat.this, "인터넷에 연결되지않아 불러오기를 중단합니다.", Toast.LENGTH_SHORT).show();
             finish();
         } else { //인터넷 체크 통과시 실행할 로직
             try {
@@ -111,7 +111,7 @@ public class Main_Library_MainScene extends AppCompatActivity {
                 Progress.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        progressDialog = ProgressDialog.show(Main_Library_MainScene.this, "", "게시판 정보를 가져오는중 입니다.");
+                        progressDialog = ProgressDialog.show(Main_Library_Seat.this, "", "게시판 정보를 가져오는중 입니다.");
                     }
                 }, 0);
 

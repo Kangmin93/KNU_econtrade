@@ -29,7 +29,7 @@
         <activity android:name=".Activities.Main_UnivNot_MainScene"></activity>
         <activity android:name=".Activities.Main_UnivNot_DetailScene"></activity>
         <activity android:name=".Activities.Main_Notice_MainScene"></activity>
-        <activity android:name=".Activities.Main_Library_MainScene"></activity>
+        <activity android:name=".Activities.Main_Library_Seat"></activity>
         <activity android:name=".Activities.Main_Council_MainScene"></activity>
         <activity android:name=".Activities.Main_Seminar_"></activity>
 
