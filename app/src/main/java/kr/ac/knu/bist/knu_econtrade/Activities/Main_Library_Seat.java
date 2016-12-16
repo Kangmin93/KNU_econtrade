@@ -117,20 +117,19 @@ public class Main_Library_Seat extends AppCompatActivity {
         NetworkInfo activeNetwork = cManager.getActiveNetworkInfo();
 
         if (activeNetwork != null) { // connected to the internet
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) { //와이파이 여부
-                return true;
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) { //와이파이 여부
+                return false;
             }
             else if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) { //모바일 데이터 여부
-                return true;
+                return false;
             }
             else if (activeNetwork.getType() == ConnectivityManager.TYPE_ETHERNET)
-                return true;
-        } else {
-            // not connected to the internet
-
+                return false;
         }
-
-        return false;
+        else {
+            // not connected to the internet
+        }
+        return true;
     }
 
     private void process() throws IOException {

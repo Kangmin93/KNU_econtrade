@@ -101,6 +101,7 @@ public class Main_UnivNot_MainScene extends AppCompatActivity {
 
         url = URL_PRIMARY + GENNOTICE_MIDDLE+ Board_num + GETNOTICE; //파싱하기전 PRIMARY URL 과 공지사항 URL 을 합쳐 완전한 URL 을만든다.
 
+
         if(isInternetCon()) { //false 반환시 if 문안의 로직 실행
             Toast.makeText(Main_UnivNot_MainScene.this, "인터넷에 연결되지않아 불러오기를 중단합니다.", Toast.LENGTH_SHORT).show();
             finish();
@@ -121,18 +122,19 @@ public class Main_UnivNot_MainScene extends AppCompatActivity {
         NetworkInfo activeNetwork = cManager.getActiveNetworkInfo();
 
         if (activeNetwork != null) { // connected to the internet
-            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) { //와이파이 여부
-                return true;
-            }
-            else if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) { //모바일 데이터 여부
-                return true;
-            }
-            else if (activeNetwork.getType() == ConnectivityManager.TYPE_ETHERNET)
-                return true;
-        } else {
+                if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) { //와이파이 여부
+                    return false;
+                }
+                else if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) { //모바일 데이터 여부
+                    return false;
+                }
+                else if (activeNetwork.getType() == ConnectivityManager.TYPE_ETHERNET)
+                    return false;
+        }
+        else {
             // not connected to the internet
         }
-        return false;
+        return true;
     }
 
     private void process() throws IOException {
