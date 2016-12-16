@@ -1,11 +1,17 @@
 package kr.ac.knu.bist.knu_econtrade.Activities;
 
 import android.app.DownloadManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
@@ -20,6 +26,7 @@ import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -35,6 +42,8 @@ import net.htmlparser.jericho.HTMLElementName;
 import net.htmlparser.jericho.Source;
 import net.htmlparser.jericho.StartTag;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -94,6 +103,8 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
     private long latestId = -1;
     private ArrayList<String> attach_name_list;
     private ListView attached_listview;
+    private NotificationManager nManger;
+    private long download_file_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,16 +133,14 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
 
         /*                          선언                       선언                      선언                             선언                                선언                 */
 
-        Log.e("tag", url);
         attached_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 //file download 할 부분.
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(attached_link.get(position)));
-                request.setTitle("down");
-                dm.enqueue(request);
-
+                request.setTitle(attach_name_list.get(position));
+                download_file_ID= dm.enqueue(request);
             }
         });
 
@@ -383,6 +392,17 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             Toast.makeText(context, "다운로드가 완료되었습니다.", Toast.LENGTH_SHORT).show();
+            Notification.Builder builder = new Notification.Builder(context);
+            builder.setContentTitle("다운로드가 완료되었습니다.");
+            builder.setAutoCancel(true);
+            builder.setSmallIcon(R.mipmap.ic_launcher);
+            Intent target = new Intent(Intent.ACTION_VIEW);
+            target.setAction(DownloadManager.ACTION_VIEW_DOWNLOADS);
+            PendingIntent pending = PendingIntent.getActivity(context,0,target,PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(pending);
+            nManger = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            nManger.notify(123456, builder.build());
+
         }
 
     };
@@ -408,4 +428,5 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
         listView.setLayoutParams(params);
         listView.requestLayout();
     }
+
 }
