@@ -12,12 +12,14 @@ import android.util.AttributeSet;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import kr.ac.knu.bist.knu_econtrade.Adapters.Adapter_MainSidebar;
 import kr.ac.knu.bist.knu_econtrade.R;
+import kr.ac.knu.bist.knu_econtrade.gradeComponents.mainGradeActivity;
 
 public class Main_MainScene extends AppCompatActivity {
 
@@ -68,7 +70,7 @@ public class Main_MainScene extends AppCompatActivity {
                         Local_Intent = new Intent(getApplicationContext(), Main_Council_MainScene.class);
                         startActivity(Local_Intent);
                         break;
-                    case 6 : // 성적 시간표
+                    case 6 : // 세미나
                         Local_Intent = new Intent(getApplicationContext(), Main_Seminar_.class);
                         startActivity(Local_Intent);
                         break;
@@ -82,18 +84,27 @@ public class Main_MainScene extends AppCompatActivity {
         View_SideMenu.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int group_pos, int child_pos, long id) {
+                Toast.makeText(getApplicationContext(), "c click = " + child_pos,
+                        Toast.LENGTH_SHORT).show();
+
                 switch (group_pos) {
                     case 3 :
                         switch (child_pos) {
-                            case 0 :
+                            case 0 : // 내 시간표
                                 Local_Intent = new Intent(getApplicationContext(), Main_UnivNot_MainScene.class);
                                 startActivity(Local_Intent);
                                 break;
-                            case 1 :
+                            case 1 : // 내 성적
+                                Local_Intent = new Intent(getApplicationContext(), mainGradeActivity.class);
+                                startActivity(Local_Intent);
                                 break;
-                            case 2 :
+                            case 2 : // 강의 계획서
+                                Local_Intent = new Intent(getApplicationContext(), Main_UnivNot_MainScene.class);
+                                startActivity(Local_Intent);
                                 break;
-                            case 3 :
+                            case 3 : // 강의 평가
+                                Local_Intent = new Intent(getApplicationContext(), Main_UnivNot_MainScene.class);
+                                startActivity(Local_Intent);
                                 break;
                         }
                         break;

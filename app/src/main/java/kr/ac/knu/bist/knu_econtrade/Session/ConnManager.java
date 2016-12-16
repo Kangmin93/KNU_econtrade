@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by stype on 2016-12-16.
  */
 
-public class ConnManager extends AsyncTask<String, Void, InputStreamReader> {
+public class ConnManager extends AsyncTask<String, Void, String> {
     public final static String main_url = "http://yes.knu.ac.kr/";
     public final static String login_url = "comm/comm/support/login/login.action";
     public final static String record_url = "cour/scor/certRec/certRecEnq/listCertRecEnqs.action";
@@ -24,7 +24,7 @@ public class ConnManager extends AsyncTask<String, Void, InputStreamReader> {
     private static String m_cookies = "";
 
     @Override
-    protected InputStreamReader doInBackground(String... args) {
+    protected String doInBackground(String... args) {
         URL url = null;
         String ret = "";
         BufferedReader in = null;
@@ -45,16 +45,20 @@ public class ConnManager extends AsyncTask<String, Void, InputStreamReader> {
             ostream.flush();
             ostream.close();
 
-            return new InputStreamReader(conn.getInputStream());
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String current;
+
+            while((current = buffer.readLine()) != null)
+                ret+=current;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return ret;
     }
 
     @Override
-    protected void onPostExecute(InputStreamReader aVoid) {
+    protected void onPostExecute(String aVoid) {
         super.onPostExecute(aVoid);
         saveCookie(conn);
     }

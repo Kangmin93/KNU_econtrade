@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/grade_item_layout"
+        android:weightSum="5"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="2">
+            <TextView
+                android:id="@+id/grade_text_subject"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:hint="Subject"/>
+
+            <TextView
+                android:id="@+id/grade_text_sort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Sorting"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/grade_text_credit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:hint="Credit"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/grade_text_score"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="24dp"
+            android:hint="huk"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
@@ -40,6 +41,7 @@ public class Intro_LoginScene extends Activity {
     EditText Text_ID;
     EditText Text_UserPasswd;
     Button Button_Login;
+    View mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +96,7 @@ public class Intro_LoginScene extends Activity {
                 String User_outputID = Text_ID.getText().toString();
                 String User_outputPW = Text_UserPasswd.getText().toString();
 
-                Login(User_outputID,User_outputPW,User_outputNB);
-                readRecord();
+                Login(v, User_outputID,User_outputPW,User_outputNB);
             }
         });
     }
@@ -132,9 +133,9 @@ public class Intro_LoginScene extends Activity {
         return false;
     }
 
-    private boolean Login(String id, String pw, String num) {
+    private boolean Login(View v, String id, String pw, String num) {
         ConnManager manager = new ConnManager();
-        InputStreamReader ret = null;
+        String ret = null;
         try {
             ret = manager.execute(ConnManager.main_url + ConnManager.login_url, "user.usr_id",id,"user.passwd",pw,"user.user_div","20","user.stu_persnl_nbr",num).get();
         } catch (InterruptedException e) {
@@ -143,20 +144,15 @@ public class Intro_LoginScene extends Activity {
             e.printStackTrace();
         }
 
-        try {
-            Source source = new Source(ret);
-            source.fullSequentialParse();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        Source source = new Source(ret);
+        source.fullSequentialParse();
+        if(source.getElementById("login")==null) {
+            Intent intent = new Intent(getApplicationContext(),Main_MainScene.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Snackbar.make(v,"Login Failed",Snackbar.LENGTH_LONG).show();
         }
         return true;
-    }
-
-    private void readRecord() {
-        ConnManager manager = new ConnManager();
-        manager.execute(ConnManager.main_url+ConnManager.record_url,"certRecEnq.recDiv","1","id","certRecEnqGrid","columnsProperty","certRecEnqColumns","rowsProperty",
-                "certRecEnqs","emptyMessageProperty","certRecEnqNotFoundMessage","viewColumn","yr_trm,subj_cde,subj_nm,unit,rec_rank_cde","checkable","false",
-                "showRowNumber","false","paged","false","serverSortingYn","false","lastColumnNoRender","false","_","");
     }
 }
