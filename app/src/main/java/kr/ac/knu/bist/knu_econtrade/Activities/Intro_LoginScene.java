@@ -10,10 +10,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import net.htmlparser.jericho.Source;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import kr.ac.knu.bist.knu_econtrade.R;
+import kr.ac.knu.bist.knu_econtrade.Session.ConnManager;
 
 /**
  * Created by neu on 16. 8. 29.
@@ -80,30 +88,14 @@ public class Intro_LoginScene extends Activity {
             public void onClick(View v) {
                 /** 로그인하기 이전에 로그인 양식 체크를 실시한다.
                  *  @return boolean */
-//                boolean Login_Enter = Check_Login_Template();
-                boolean Login_Enter = true;
+//              boolean Login_Enter = Check_Login_Template();
 
-                if (Login_Enter) {
-                    String User_outputNB = Text_Number.getText().toString();
-                    String User_outputID = Text_ID.getText().toString();
-                    String User_outputPW = Text_UserPasswd.getText().toString();
+                String User_outputNB = Text_Number.getText().toString();
+                String User_outputID = Text_ID.getText().toString();
+                String User_outputPW = Text_UserPasswd.getText().toString();
 
-/*                    // ID 와 패스워드를 서버에서 대조 시킨다.
-                    Login = new Intro_LoginRequest(User_outputID, User_outputPW);
-
-                    // 서버에서 대조한 결과가 맞으면 (ID 및 pw 가 맞아떨어짐)
-                    if (Login_Enter = Login.LoginAccess())  {
-                        // 유저 정보를 저장하기 위한 저장객체를 생성하고
-                        // 이 객체에 정보를 옮기기 위해 현재 로그인하고 있는 유저의 ID 를
-                        // LoadUserInfoAccess 에 넣어 실행시킨다.
-                        User_InfoInstance = Repo_UserInformSGT.getInstance();
-                        GetPHP.LoadUserInfoAccess(User_outputID);*/
-                    Intent local_intent = new Intent(Intro_LoginScene.this, Main_MainScene.class);
-                    startActivity(local_intent);
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-                }
+                Login(User_outputID,User_outputPW,User_outputNB);
+                readRecord();
             }
         });
     }
@@ -138,5 +130,33 @@ public class Intro_LoginScene extends Activity {
             return true;
 
         return false;
+    }
+
+    private boolean Login(String id, String pw, String num) {
+        ConnManager manager = new ConnManager();
+        InputStreamReader ret = null;
+        try {
+            ret = manager.execute(ConnManager.main_url + ConnManager.login_url, "user.usr_id",id,"user.passwd",pw,"user.user_div","20","user.stu_persnl_nbr",num).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            Source source = new Source(ret);
+            source.fullSequentialParse();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    private void readRecord() {
+        ConnManager manager = new ConnManager();
+        manager.execute(ConnManager.main_url+ConnManager.record_url,"certRecEnq.recDiv","1","id","certRecEnqGrid","columnsProperty","certRecEnqColumns","rowsProperty",
+                "certRecEnqs","emptyMessageProperty","certRecEnqNotFoundMessage","viewColumn","yr_trm,subj_cde,subj_nm,unit,rec_rank_cde","checkable","false",
+                "showRowNumber","false","paged","false","serverSortingYn","false","lastColumnNoRender","false","_","");
     }
 }
