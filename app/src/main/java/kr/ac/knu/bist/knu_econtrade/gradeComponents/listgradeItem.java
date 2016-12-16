@@ -5,7 +5,7 @@ package kr.ac.knu.bist.knu_econtrade.gradeComponents;
  */
 public class listGradeItem {
     private Integer itemYear;
-    private Integer itemSemester;
+    private String itemSemester;
 
     private String itemName;
     private String itemSort;
@@ -15,7 +15,7 @@ public class listGradeItem {
 
     public listGradeItem() {}
 
-    public listGradeItem(Integer itemYear, Integer itemSemester,
+    public listGradeItem(Integer itemYear, String itemSemester,
                          String itemName, String itemSort,
                          String itemCode, Integer itemUnit, String itemRank) {
         this.itemYear = itemYear;
