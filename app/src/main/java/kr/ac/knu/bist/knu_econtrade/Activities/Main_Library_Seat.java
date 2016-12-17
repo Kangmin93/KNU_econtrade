@@ -177,6 +177,7 @@ public class Main_Library_Seat extends AppCompatActivity {
                         }
                     }
                 }
+                SEAT_String[0][5]="사용률(%)";
                 for(int i=0;i<13;i++){
                     for(int j=1;j<6;j++){
                         Seat_ArrayList.add(SEAT_String[i][j]);
