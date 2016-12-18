@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
 
     <LinearLayout
         android:id="@+id/grade_item_layout"
@@ -12,38 +13,38 @@
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="2">
+            android:layout_weight="4">
             <TextView
                 android:id="@+id/grade_text_subject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:hint="Subject"/>
-
-            <TextView
-                android:id="@+id/grade_text_sort"
-                android:layout_width="match_parent"
+                android:hint="Subject"
+                android:layout_marginBottom="3dp"/>
+            <LinearLayout
                 android:layout_height="wrap_content"
-                android:hint="Sorting"/>
+                android:layout_width="match_parent">
+                <TextView
+                    android:id="@+id/grade_text_sort"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="Sorting"/>
+
+                <TextView
+                    android:id="@+id/grade_text_credit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="Credit"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/grade_text_credit"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:hint="Credit"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/grade_text_score"
@@ -55,4 +56,9 @@
             android:textSize="24dp"
             android:hint="huk"/>
     </LinearLayout>
-</RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#000000"
+        android:layout_margin="12dp"/>
+</LinearLayout>
