@@ -3,11 +3,13 @@ package kr.ac.knu.bist.knu_econtrade.Activities;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ public class Intro_LoginScene extends Activity {
     EditText Text_Number;
     EditText Text_ID;
     EditText Text_UserPasswd;
+    CheckBox checkAuto;
     Button Button_Login;
     View mView;
 
@@ -52,8 +55,19 @@ public class Intro_LoginScene extends Activity {
         Text_ID = (EditText) findViewById(R.id.login_id);
         Text_UserPasswd = (EditText) findViewById(R.id.login_password);
         Button_Login = (Button) findViewById(R.id.login_button_login);
+        checkAuto = (CheckBox)findViewById(R.id.autologin);
 
         final AlertDialog.Builder OutApp_Builder = new AlertDialog.Builder(Intro_LoginScene.this);
+
+        SharedPreferences prefs = getSharedPreferences("user_info", MODE_PRIVATE);
+        if(prefs.contains("stdnbr")) {
+            String id = prefs.getString("stdid", "");
+            String pw = prefs.getString("stdpw", "");
+            String nbr = prefs.getString("stdnbr", "");
+            checkAuto.setChecked(true);
+            Login(checkAuto, id,pw,nbr);
+        }
+
 
         OutApp_Builder.setMessage("\'ECON & TRADE\'를 종료하시겠습니까?");
         OutApp_Builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -96,9 +110,25 @@ public class Intro_LoginScene extends Activity {
                 String User_outputID = Text_ID.getText().toString();
                 String User_outputPW = Text_UserPasswd.getText().toString();
 
+                if(checkAuto.isChecked()) {
+                    SharedPreferences prefs = getSharedPreferences("user_info", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("stdnbr",User_outputNB);
+                    editor.putString("stdid",User_outputID);
+                    editor.putString("stdpw",User_outputPW);
+                    editor.commit();
+                } else {
+                    SharedPreferences prefs = getSharedPreferences("user_info", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.remove("stdnbr");
+                    editor.remove("stdid");
+                    editor.remove("stdpw");
+                    editor.commit();
+                }
                 Login(v, User_outputID,User_outputPW,User_outputNB);
             }
         });
+
     }
 
     private boolean Check_Login_Template() {
