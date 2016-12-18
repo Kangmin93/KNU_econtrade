@@ -1,6 +1,7 @@
 package kr.ac.knu.bist.knu_econtrade.Activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
@@ -42,6 +44,8 @@ import kr.ac.knu.bist.knu_econtrade.noticeComponents.SeatListData;
 
 public class Main_Library_Seat extends AppCompatActivity {
 
+
+    private final String library_url = "http://libseat.knu.ac.kr/roomview5.asp?room_no=";
     private String url;
     private java.net.URL URL;
 
@@ -70,6 +74,16 @@ public class Main_Library_Seat extends AppCompatActivity {
         Seat_List_view = (ListView) findViewById(R.id.seat_list);
         adapter = new Seat_adapter(this, Seat_ArrayList);
         Seat_List_view.setAdapter(adapter);
+        Seat_List_view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getApplicationContext(), Sub_Seatview_Activity.class);
+                intent.putExtra("url",library_url+(position+1));
+                startActivity(intent);
+
+            }
+        });
         if (isInternetCon()) { //false 반환시 if 문안의 로직 실행
             Toast.makeText(Main_Library_Seat.this, "인터넷에 연결되지않아 불러오기를 중단합니다.", Toast.LENGTH_SHORT).show();
             finish();
@@ -130,9 +144,6 @@ public class Main_Library_Seat extends AppCompatActivity {
                 }
 
 
-                // http://libseat.knu.ac.kr/roomview5.asp?room_no=1
-                //http://libseat.knu.ac.kr/roomview5.asp?room_no=2
-                //http://libseat.knu.ac.kr/roomview5.asp?room_no=3 이런식으로 되어 있음 순서대로. 웹뷰로 띄워주면됨.
                 final Element SEAT = (Element) source.getAllElements(HTMLElementName.TABLE).get(1);
                 //tr 0, 1은 가져올 필요 없음.
 
