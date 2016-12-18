@@ -119,11 +119,13 @@ public class Main_MainScene extends AppCompatActivity {
                         break;
                     case 5 :
                         switch (child_pos) {
-                            case 0 : //TODO : Children Item 클릭 시, 화면 전환이 되도록 할 것.
+                            case 0 : //TODO : Children Item 클릭 시, 화면 전환이 되도록 할 것. 도서관 자리
                                 Local_Intent = new Intent(getApplicationContext(), Main_Library_Seat.class);
                                 startActivity(Local_Intent);
                                 break;
-                            case 1 :
+                            case 1 :// 도서 대출 현황.
+                                Local_Intent = new Intent(getApplicationContext(),Main_Library_BookStatus.class);
+                                startActivity(Local_Intent);
                                 break;
                         }
                         break;

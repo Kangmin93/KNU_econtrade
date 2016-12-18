@@ -24,7 +24,7 @@
         </activity>
 
         <activity android:name=".Activities.Intro_LoginScene"></activity>
-
+        <activity android:name=".Activities.Main_Library_BookStatus"></activity>
         <activity android:name=".Activities.Main_MainScene"></activity>
         <activity android:name=".Activities.Main_UnivNot_MainScene"></activity>
         <activity android:name=".Activities.Main_UnivNot_DetailScene"></activity>
