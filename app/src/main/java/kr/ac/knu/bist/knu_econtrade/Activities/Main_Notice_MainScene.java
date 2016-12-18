@@ -130,7 +130,7 @@ public class Main_Notice_MainScene extends AppCompatActivity {
         } else {
             // not connected to the internet
         }
-        return ture;
+        return true;
     }
 
     private void processRetrieveItems() throws IOException {
