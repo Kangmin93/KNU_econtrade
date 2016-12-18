@@ -122,15 +122,15 @@ public class Main_Notice_MainScene extends AppCompatActivity {
 
         if (activeNetwork != null) { // connected to the internet
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) { //와이파이 여부
-                return true;
+                return false;
             } else if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) { //모바일 데이터 여부
-                return true;
+                return false;
             } else if (activeNetwork.getType() == ConnectivityManager.TYPE_ETHERNET)
-                return true;
+                return false;
         } else {
             // not connected to the internet
         }
-        return false;
+        return ture;
     }
 
     private void processRetrieveItems() throws IOException {
