@@ -64,8 +64,17 @@ public class Main_Library_BookStatus extends AppCompatActivity {
                         if(array != null) {
                             mListData.clear();
                             for (int i = 0; i < array.length(); i++) {
+                                String avail = "대출중";
                                 JSONObject object = array.getJSONObject(i);
-                                mListData.add(new bookInfo(object.getString("titleStatement"), object.getString("author"), "대출가능"));
+                                JSONArray booklist = object.getJSONArray("branchVolumes");
+                                for (int j = 0; j < booklist.length(); j++) {
+                                    JSONObject book = booklist.getJSONObject(j);
+                                    if(book.getString("cState").equals("열람가능"))
+                                        avail = "열람가능";
+                                    if(book.getString("cState").equals("대출가능"))
+                                        avail = "대출가능";
+                                }
+                                mListData.add(new bookInfo(object.getString("titleStatement"), object.getString("author"), avail));
                             }
                         }
                         else
