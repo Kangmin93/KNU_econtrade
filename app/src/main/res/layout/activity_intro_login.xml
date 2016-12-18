@@ -40,7 +40,8 @@
                 android:id="@+id/login_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Type ID"/>
+                android:hint="Type ID"
+                android:inputType="textUri"/>
         </LinearLayout>
 
         <LinearLayout
