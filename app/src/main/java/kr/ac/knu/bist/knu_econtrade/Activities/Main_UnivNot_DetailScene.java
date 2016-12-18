@@ -74,13 +74,12 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
 
     private String url;
     private java.net.URL URL;
-
     private Source source;
     private ProgressDialog progressDialog;
     private BBSListAdapter BBSAdapter = null;
     private ListView BBSList;
     private int BBSlocate;
-    private TextView title, content, attachedfile;
+    private TextView title, content, writer, date;
     private ImageView imageview;
     private List<String> imageList = null;
     private List<URL> urlList = null;
@@ -112,6 +111,8 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
         title = (TextView) findViewById(R.id.knu_notice_title);
+        writer = (TextView)findViewById(R.id.knu_notice_writer);
+        date = (TextView)findViewById(R.id.knu_notice_date);
         scroll = (ScrollView) findViewById(R.id.myscrollView);
         linearLayout = (LinearLayout) findViewById(R.id.imageLayout);
         content = (TextView) findViewById(R.id.knu_notice);
@@ -321,7 +322,9 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        title.setText("제목: " + Notice_title + "\n" + "작성자: " + Notice_writer + "/" + "게시일: " + Notice_date);
+                        title.setText(Notice_title);
+                        writer.setText(Notice_writer);
+                        date.setText(Notice_date);
                         //content.setText(Html.fromHtml(Notice));
                         //attach_name_list.size() ->첨부된 파일 개수
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.attach_item, R.id.attach_name, attach_name_list);
