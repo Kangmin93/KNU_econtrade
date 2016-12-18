@@ -2,6 +2,7 @@ package kr.ac.knu.bist.knu_econtrade.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.DrawerLayout;
@@ -54,6 +55,7 @@ public class Main_MainScene extends AppCompatActivity {
         // 5. 식단 a. 기숙사 b. 교내식당
         // 6. 도서관 a. 열람실 현황 b. 도서대출 현황
         // 7. 세미나실
+        // 8. 로그아웃
         View_SideMenu.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int position, long id) {
@@ -73,6 +75,19 @@ public class Main_MainScene extends AppCompatActivity {
                     case 6 : // 세미나
                         Local_Intent = new Intent(getApplicationContext(), Main_Seminar_.class);
                         startActivity(Local_Intent);
+                        break;
+                    case 7 :
+                        SharedPreferences prefs = getSharedPreferences("user_info", MODE_PRIVATE);
+                        if(prefs.contains("stdnbr")) {
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.remove("stdnbr");
+                            editor.remove("stdid");
+                            editor.remove("stdpw");
+                            editor.commit();
+                        }
+                        Local_Intent = new Intent(getApplicationContext(), Intro_LoginScene.class);
+                        startActivity(Local_Intent);
+                        finish();
                         break;
                     default :
                         return false;
@@ -208,5 +223,7 @@ public class Main_MainScene extends AppCompatActivity {
         List_ChildMenu.put(List_GroupMenu.get(3), GroupChild_4);
         List_ChildMenu.put(List_GroupMenu.get(4), GroupChild_5);
         List_ChildMenu.put(List_GroupMenu.get(5), GroupChild_6);
+
+        List_GroupMenu.add("로그아웃");
     }
 }
