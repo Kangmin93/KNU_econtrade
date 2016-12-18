@@ -32,7 +32,7 @@
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:text="학번"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"/>
 
             <EditText
                 android:id="@+id/login_number"
@@ -40,7 +40,9 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:textColor="#FFFFFF"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:singleLine="true"
+                android:scrollHorizontally="true"/>
         </LinearLayout>
 
         <LinearLayout
