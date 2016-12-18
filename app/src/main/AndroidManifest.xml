@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.Intro_LoginScene" />
-        <activity android:name=".Activities.Main_Library_BookStatus" />
+        <activity android:name=".libraryComponents.Main_Library_BookStatus" />
         <activity android:name=".Activities.Main_MainScene" />
         <activity android:name=".Activities.Main_UnivNot_MainScene" />
         <activity android:name=".Activities.Main_UnivNot_DetailScene" />
