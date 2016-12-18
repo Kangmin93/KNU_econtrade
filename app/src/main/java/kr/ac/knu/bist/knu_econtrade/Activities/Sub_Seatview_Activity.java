@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import kr.ac.knu.bist.knu_econtrade.R;
@@ -23,6 +24,7 @@ public class Sub_Seatview_Activity extends AppCompatActivity {
         webview.setVerticalScrollBarEnabled(true);
         webview.getSettings().setBuiltInZoomControls(true);
         webview.getSettings().setSupportZoom(true);
+        webview.setInitialScale(150);
         webview.loadUrl(url);
 
     }
