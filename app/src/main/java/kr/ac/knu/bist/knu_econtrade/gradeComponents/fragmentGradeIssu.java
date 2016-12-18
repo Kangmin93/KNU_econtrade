@@ -1,46 +1,25 @@
 package kr.ac.knu.bist.knu_econtrade.gradeComponents;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 import net.htmlparser.jericho.Element;
 import net.htmlparser.jericho.HTMLElementName;
 import net.htmlparser.jericho.Source;
-import net.htmlparser.jericho.StartTag;
 
-import kr.ac.knu.bist.knu_econtrade.Activities.Main_UnivNot_MainScene;
 import kr.ac.knu.bist.knu_econtrade.R;
 import kr.ac.knu.bist.knu_econtrade.Session.ConnManager;
-
-import static android.content.Context.CONNECTIVITY_SERVICE;
 
 
 /**
@@ -53,7 +32,7 @@ public class fragmentGradeIssu extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recylerViewContainer;
     private adapterGradeItem mAdapter;
-    private ArrayList<listGradeItem> listChildItems = new ArrayList<>();
+    private ArrayList<listgradeItem> listChildItems = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -125,7 +104,7 @@ public class fragmentGradeIssu extends Fragment {
                     itemUnit = 0;
                 }
                 String itemRank = elements_sub.get(6).getTextExtractor().toString();
-                listChildItems.add(new listGradeItem(itemYear,itemSemester,itemName,itemSort,itemCode,itemUnit,itemRank));
+                listChildItems.add(new listgradeItem(itemYear,itemSemester,itemName,itemSort,itemCode,itemUnit,itemRank));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

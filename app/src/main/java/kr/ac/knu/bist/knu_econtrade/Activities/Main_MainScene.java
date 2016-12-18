@@ -111,10 +111,13 @@ public class Main_MainScene extends AppCompatActivity {
                     case 4 :
                         switch (child_pos) {
                             case 0 :
-                                Local_Intent = new Intent(getApplicationContext(), Main_UnivNot_MainScene.class);
+                                Local_Intent = new Intent(getApplicationContext(), Main_Foodmall.class);
                                 startActivity(Local_Intent);
                                 break;
                             case 1 :
+                                Local_Intent = new Intent(getApplicationContext(),Main_Foodmall.class);
+                                startActivity(Local_Intent);
+                                break;
                         }
                         break;
                     case 5 :

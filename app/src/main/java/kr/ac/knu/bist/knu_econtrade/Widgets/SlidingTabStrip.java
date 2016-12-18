@@ -43,7 +43,7 @@ class slidingTabStrip extends LinearLayout {
     private int mSelectedPosition;
     private float mSelectionOffset;
 
-    private slidingTabLayout.TabColorizer mCustomTabColorizer;
+    private SlidingTabLayout.TabColorizer mCustomTabColorizer;
     private final SimpleTabColorizer mDefaultTabColorizer;
 
     slidingTabStrip(Context context) {
@@ -74,7 +74,7 @@ class slidingTabStrip extends LinearLayout {
         mSelectedIndicatorPaint = new Paint();
     }
 
-    void setCustomTabColorizer(slidingTabLayout.TabColorizer customTabColorizer) {
+    void setCustomTabColorizer(SlidingTabLayout.TabColorizer customTabColorizer) {
         mCustomTabColorizer = customTabColorizer;
         invalidate();
     }
@@ -96,7 +96,7 @@ class slidingTabStrip extends LinearLayout {
     protected void onDraw(Canvas canvas) {
         final int height = getHeight();
         final int childCount = getChildCount();
-        final slidingTabLayout.TabColorizer tabColorizer = mCustomTabColorizer != null
+        final SlidingTabLayout.TabColorizer tabColorizer = mCustomTabColorizer != null
                 ? mCustomTabColorizer
                 : mDefaultTabColorizer;
 
@@ -152,7 +152,7 @@ class slidingTabStrip extends LinearLayout {
         return Color.rgb((int) r, (int) g, (int) b);
     }
 
-    private static class SimpleTabColorizer implements slidingTabLayout.TabColorizer {
+    private static class SimpleTabColorizer implements SlidingTabLayout.TabColorizer {
         private int[] mIndicatorColors;
 
         @Override

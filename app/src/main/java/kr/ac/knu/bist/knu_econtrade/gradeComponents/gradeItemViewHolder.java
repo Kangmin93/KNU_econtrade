@@ -19,7 +19,7 @@ public class gradeItemViewHolder extends RecyclerView.ViewHolder {
 
     public LinearLayout childLayout;
 
-    public listGradeItem referenceItem;
+    public listgradeItem referenceItem;
 
     public gradeItemViewHolder(View itemView) {
         super(itemView);
@@ -31,7 +31,7 @@ public class gradeItemViewHolder extends RecyclerView.ViewHolder {
         childLayout = (LinearLayout) itemView.findViewById(R.id.grade_item_layout);
     }
 
-    public void bind(listGradeItem item) {
+    public void bind(listgradeItem item) {
         this.referenceItem = item;
         this.itemName.setText(item.getItemName());
         this.itemSort.setText(item.getItemSort());

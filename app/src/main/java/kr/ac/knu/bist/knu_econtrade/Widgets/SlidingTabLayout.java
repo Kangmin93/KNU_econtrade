@@ -49,7 +49,7 @@ import android.widget.TextView;
  * The views used as tabs can be customized by calling {@link #setCustomTabView(int, int)},
  * providing the layout ID of your custom layout.
  */
-public class slidingTabLayout extends HorizontalScrollView {
+public class SlidingTabLayout extends HorizontalScrollView {
     /**
      * Allows complete control over the colors drawn in the tab layout. Set with
      * {@link #//setCustomTabColorizer(com.google.samples.apps.iosched.ui.widget.SlidingTabLayout.TabColorizer)}.
@@ -83,15 +83,15 @@ public class slidingTabLayout extends HorizontalScrollView {
 
     private final slidingTabStrip mTabStrip;
 
-    public slidingTabLayout(Context context) {
+    public SlidingTabLayout(Context context) {
         this(context, null);
     }
 
-    public slidingTabLayout(Context context, AttributeSet attrs) {
+    public SlidingTabLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public slidingTabLayout(Context context, AttributeSet attrs, int defStyle) {
+    public SlidingTabLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         // Disable the Scroll Bar

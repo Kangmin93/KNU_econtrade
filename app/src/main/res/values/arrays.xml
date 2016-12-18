@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="food">
+        <item>GP감꽃푸드코트</item>
+        <item>GP일청당</item>
+        <item>공학관 교직원식당</item>
+        <item>공학관 학생식당</item>
+        <item>복지관 교직원식당</item>
+        <item>복지관 학생식당</item>
+        <item>복현회관 교직원식당</item>
+        <item>복현회관 학생식당</item>
+        <item>정보센터식당</item>
+    </string-array>
+</resources>

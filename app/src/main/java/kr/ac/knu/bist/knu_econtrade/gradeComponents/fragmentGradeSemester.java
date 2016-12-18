@@ -1,19 +1,12 @@
 package kr.ac.knu.bist.knu_econtrade.gradeComponents;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,7 +22,7 @@ public class fragmentGradeSemester extends Fragment {
     private RecyclerView recylerViewContainer;
     private adapterGradeItem mAdapter;
 
-    private ArrayList<listGradeItem> listChildItems = new ArrayList<>();
+    private ArrayList<listgradeItem> listChildItems = new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

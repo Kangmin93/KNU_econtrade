@@ -17,9 +17,9 @@ import kr.ac.knu.bist.knu_econtrade.R;
 public class adapterGradeItem extends gradeRecyclerView.Adapter<gradeItemViewHolder> {
     public Context context;
     private LayoutInflater mInfalter;
-    private ArrayList<listGradeItem> listChild = new ArrayList<>();
+    private ArrayList<listgradeItem> listChild = new ArrayList<>();
 
-    public adapterGradeItem(Context context, ArrayList<listGradeItem> arrayChild) {
+    public adapterGradeItem(Context context, ArrayList<listgradeItem> arrayChild) {
         super();
         this.context = context;
         this.listChild = arrayChild;

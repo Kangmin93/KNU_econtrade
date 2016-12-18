@@ -17,7 +17,7 @@ import kr.ac.knu.bist.knu_econtrade.R;
  */
 
 public class Adapter_SectionsPager extends FragmentStatePagerAdapter
-        implements slidingTabLayout.TabIconProvider {
+        implements SlidingTabLayout.TabIconProvider {
 
     private static int IconRes[] = {
             R.drawable.dev_noitems,
