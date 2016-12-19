@@ -9,16 +9,13 @@
         android:text="경북대학교 도서관 열람실별 실시간 좌석정보"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"/>
-    <GridView
-        android:id="@+id/grid"
+    <ListView
+        android:id="@+id/seat_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnWidth="150dp"
-        android:stretchMode="columnWidth"
-        android:horizontalSpacing="-1px"
-        android:verticalSpacing="-1px"
-        android:numColumns="5">
-
-
-    </GridView>
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:divider="@null"></ListView>
 </LinearLayout>

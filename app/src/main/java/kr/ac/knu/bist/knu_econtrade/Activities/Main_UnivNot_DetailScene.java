@@ -1,5 +1,7 @@
 package kr.ac.knu.bist.knu_econtrade.Activities;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DownloadManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -74,13 +77,12 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
 
     private String url;
     private java.net.URL URL;
-
     private Source source;
     private ProgressDialog progressDialog;
     private BBSListAdapter BBSAdapter = null;
     private ListView BBSList;
     private int BBSlocate;
-    private TextView title, content, attachedfile;
+    private TextView title, content, writer, date;
     private ImageView imageview;
     private List<String> imageList = null;
     private List<URL> urlList = null;
@@ -106,12 +108,15 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
     private ListView attached_listview;
     private NotificationManager nManger;
     private long download_file_ID;
+    private AlertDialog.Builder alBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
         title = (TextView) findViewById(R.id.knu_notice_title);
+        writer = (TextView) findViewById(R.id.knu_notice_writer);
+        date = (TextView) findViewById(R.id.knu_notice_date);
         scroll = (ScrollView) findViewById(R.id.myscrollView);
         linearLayout = (LinearLayout) findViewById(R.id.imageLayout);
         content = (TextView) findViewById(R.id.knu_notice);
@@ -137,12 +142,28 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
         attached_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                final int tempposition = position;
                 //file download 할 부분.
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(attached_link.get(position)));
-                request.setTitle(attach_name_list.get(position));
-                request.setDestinationInExternalFilesDir(getApplicationContext(), Environment.DIRECTORY_DOWNLOADS,attach_name_list.get(position));
-                download_file_ID= dm.enqueue(request);
+                alBuilder = new AlertDialog.Builder(Main_UnivNot_DetailScene.this);
+                alBuilder.setTitle("파일 다운로드");
+                alBuilder.setMessage(attach_name_list.get(position));
+                alBuilder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                alBuilder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(attached_link.get(tempposition)));
+                        request.setTitle(attach_name_list.get(tempposition));
+                        request.setDestinationInExternalFilesDir(getApplicationContext(), Environment.DIRECTORY_DOWNLOADS, attach_name_list.get(tempposition));
+                        download_file_ID = dm.enqueue(request);
+                    }
+                });
+                alBuilder.show();
+
             }
         });
 
@@ -321,7 +342,9 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        title.setText("제목: " + Notice_title + "\n" + "작성자: " + Notice_writer + "/" + "게시일: " + Notice_date);
+                        title.setText(Notice_title);
+                        writer.setText(Notice_writer);
+                        date.setText(Notice_date);
                         //content.setText(Html.fromHtml(Notice));
                         //attach_name_list.size() ->첨부된 파일 개수
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.attach_item, R.id.attach_name, attach_name_list);
@@ -400,7 +423,7 @@ public class Main_UnivNot_DetailScene extends AppCompatActivity {
             builder.setSmallIcon(R.mipmap.ic_launcher);
             Intent target = new Intent(Intent.ACTION_VIEW);
             target.setAction(DownloadManager.ACTION_VIEW_DOWNLOADS);
-            PendingIntent pending = PendingIntent.getActivity(context,0,target,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pending = PendingIntent.getActivity(context, 0, target, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(pending);
             nManger = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             nManger.notify(123456, builder.build());
